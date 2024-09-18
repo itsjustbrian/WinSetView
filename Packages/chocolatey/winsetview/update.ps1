@@ -11,8 +11,9 @@ function global:au_BeforeUpdate() {
   $toolsPath = Resolve-Path tools
   $zipFileName = "WinSetView-{0}.zip" -f $version
   $zipFilePath = Join-Path $toolsPath $zipFileName
-  Write-Host "Downloading $assetUrl to $zipFilePath"
+  Write-Host "Downloading release zip: $assetUrl"
   Invoke-WebRequest $assetUrl -OutFile $zipFilePath
+  Write-Host "Saved release zip: $zipFilePath"
 }
 
 function global:au_SearchReplace {
