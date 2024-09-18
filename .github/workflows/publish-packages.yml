@@ -1,0 +1,48 @@
+name: Publish Packages
+on:
+  release:
+    types: [published]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Publish to Chocolatey
+        run: |
+          choco push ./nupkg/*.nupkg --api-key=$CHOCO_API_KEY --source=https://push.chocolatey.org/
+        env:
+          CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
+
+      - name: Download Winget CLI
+        run: sudo apt-get install winget
+
+      - name: Submit package to Winget
+        run: |
+          winget create-pkg-manifest ./nupkg/<your-package> # Create manifest
+          winget submit ./nupkg/<your-package> --token=$WINGET_SUBMISSION_TOKEN
+        env:
+          WINGET_SUBMISSION_TOKEN: ${{ secrets.WINGET_SUBMISSION_TOKEN }}
+
+      - name: Notify on successful publish
+        run: echo "Package successfully published to Chocolatey and Winget!"
