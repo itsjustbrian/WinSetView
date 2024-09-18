@@ -20,11 +20,15 @@ $ErrorActionPreference = 'Stop' # stop on all errors
 
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
-$version = '2.99'
-$zipFilePath = Join-Path $toolsDir "WinSetView-$($version).zip"
+$zipFile = Get-ChildItem -Path $toolsDir -Filter "WinSetView*.zip" | Select-Object -First 1
+if (-Not $zipFile) {
+  Exit 1
+}
+$zipFilePath = $zipFile.Name
+
 Get-ChocolateyUnzip -FileFullPath $zipFilePath -Destination $toolsDir
 
-$files = get-childitem $toolsDir -include *.exe -recurse
+$files = Get-ChildItem $toolsDir -include *.exe -recurse
 
 foreach ($file in $files) {
   if ($file.Name -eq "WinSetView.exe") {

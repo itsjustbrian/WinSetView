@@ -78,6 +78,6 @@ let them know the package is no longer updating correctly.
   </metadata>
   <files>
     <!-- this section controls what actually gets packaged into the Chocolatey package -->
-    <file src="packages\chocolatey\tools\**" target="tools" />
+    <file src="tools\**" target="tools" />
   </files>
 </package>
