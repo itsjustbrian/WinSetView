@@ -15,5 +15,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Test
-        run: echo test
+      - name: Get Chocolatey AU
+        run: Install-Module chocolatey-au
