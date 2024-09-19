@@ -30,5 +30,7 @@ if (!$package) {
   # TODO maybe more info here?
   throw 'No nupkg file was found after build'
 }
+Write-Host $package
+Write-Host $package.FullName
 
 Write-Output $package.FullName
