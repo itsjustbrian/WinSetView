@@ -31,9 +31,12 @@ jobs:
 
       - name: Test
         run: |
-          Write-Host ${{ steps }}
-          Write-Host ${{ steps.build }}
-          Write-Host ${{ steps.build.outputs }}
+          # Write-Host ${{ steps }}
+          # Write-Host ${{ steps.build }}
+          # Write-Host ${{ steps.build.outputs }}
+          Write-Host ${{ steps.build.outputs.test }}
+          Write-Host ${{ steps.build.outputs.test2 }}
+          Write-Host ${{ steps.build.outputs.test3 }}
           Write-Host ${{ steps.build.outputs.package }}
 
       - name: Upload package artifact
