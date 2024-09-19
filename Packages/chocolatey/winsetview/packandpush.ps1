@@ -29,11 +29,12 @@ Write-Host "Downloading release: $assetUrl"
 Invoke-WebRequest $assetUrl -OutFile $zipFilePath
 Write-Host "Saved release: $zipFilePath"
 
-choco pack --limit-output
+choco pack $nuspecPath --limit-output
 $package = Get-ChildItem -Filter *.nupkg | Select-Object -First 1
 if (!$package) {
   throw 'There is no nupkg file in the directory'
 }
+Write-Host "Created nupkg: $package"
 
 $pushUrl = 'https://push.chocolatey.org'
 # choco push $package.Name --api-key $apiKey --source $pushUrl
