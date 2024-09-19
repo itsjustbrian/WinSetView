@@ -1,8 +1,4 @@
 
-param (
-  [Parameter(Mandatory=$true)][string]$apiKey
-)
-
 $ErrorActionPreference = 'Stop'
 
 $currentPath = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
@@ -15,7 +11,8 @@ $version = $nuspecXml.package.metadata.version
 $chocoUrl = "https://chocolatey.org/packages/winsetview/$version"
 try {
     request $chocoUrl | out-null
-    Write-Host "Version $verion already exists in the Chocolatey community feed. Exiting..."
+    # TODO: Maybe error here?
+    Write-Host "Version $verion already exists in the Chocolatey community feed ($chocoUrl). Exiting..."
     return
 } catch { }
 
@@ -27,12 +24,10 @@ Write-Host "Downloading release: $assetUrl"
 Invoke-WebRequest $assetUrl -OutFile $zipFilePath
 Write-Host "Saved release: $zipFilePath"
 
-choco pack $nuspecPath --limit-output
-$package = Get-ChildItem -Filter *.nupkg | Select-Object -First 1
+choco pack $nuspecPath --outputdirectory $currentPath --limit-output
+$package = Get-ChildItem -Path $currentPath -Filter *.nupkg | Select-Object -First 1
 if (!$package) {
-  throw 'There is no nupkg file in the directory'
+  throw 'No nupkg file was found'
 }
-Write-Host $package.Name
 
-$pushUrl = 'https://push.chocolatey.org'
-# choco push $package --api-key $apiKey --source $pushUrl
+Write-Output $package

@@ -15,8 +15,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Create and publish package
+      - name: Build package
+        id: build
         shell: pwsh
-        run: ./Packages/chocolatey/winsetview/packandpush.ps1 -apiKey "test"
-        env:
-          CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
+        run: |
+          $package = ./Packages/chocolatey/winsetview/build.ps1
+          Write-Output "package=$package" >> "$GITHUB_OUTPUT"
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: package-artifact 
+          path: ${{ steps.build.outputs.package }}
+
+      # - name: Publish package
+      #   shell: pwsh
+      #   run: ./Packages/chocolatey/winsetview/publish.ps1 -package ${{ steps.build.outputs.package }} -apiKey $CHOCO_API_KEY
+      #   env:
+      #     CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
+    
