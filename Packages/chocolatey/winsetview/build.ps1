@@ -27,7 +27,8 @@ Write-Host "Saved release: $zipFilePath"
 choco pack $nuspecPath --outputdirectory $currentPath --limit-output
 $package = Get-ChildItem -Path $currentPath -Filter *.nupkg | Select-Object -First 1
 if (!$package) {
-  throw 'No nupkg file was found'
+  # TODO maybe more info here?
+  throw 'No nupkg file was found after build'
 }
 
-Write-Output $package
+Write-Output $package.FullName
