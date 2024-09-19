@@ -23,18 +23,26 @@ jobs:
         id: build
         run: |
           $package = ./build.ps1
-          Write-Host $package
-          echo "test=test" >> "$GITHUB_OUTPUT"
-          Write-Output "test2=test2" >> "$GITHUB_OUTPUT"
-          Write-Host "test3=test3" >> "$GITHUB_OUTPUT"
-          Write-Output "package=$package" >> "$GITHUB_OUTPUT"
+          # Write-Host $package
+          # echo "test=test" >> "$GITHUB_OUTPUT"
+          # Write-Output "test2=test2" >> "$GITHUB_OUTPUT"
+          # Write-Host "test3=test3" >> "$GITHUB_OUTPUT"
+          # Write-Output "package=$package" >> "$GITHUB_OUTPUT"
+          echo "test=test" >> $env:GITHUB_OUTPUT
+          echo "test2=test2" >> $env:GITHUB_OUTPUT
+          echo "test3=test3" >> $env:GITHUB_OUTPUT
+          echo "package=$package" >> $env:GITHUB_OUTPUT
 
       - name: Test
         run: |
-          Write-Host "${{ steps.build.outputs.test }}"
-          Write-Host "${{ steps.build.outputs.test2 }}"
-          Write-Host "${{ steps.build.outputs.test3 }}"
-          Write-Host "${{ steps.build.outputs.package }}"
+          # Write-Host "${{ steps.build.outputs.test }}"
+          # Write-Host "${{ steps.build.outputs.test2 }}"
+          # Write-Host "${{ steps.build.outputs.test3 }}"
+          # Write-Host "${{ steps.build.outputs.package }}"
+          Write-Host "Output test: ${{ steps.build.outputs.test }}"
+          Write-Host "Output test2: ${{ steps.build.outputs.test2 }}"
+          Write-Host "Output test3: ${{ steps.build.outputs.test3 }}"
+          Write-Host "Output package: ${{ steps.build.outputs.package }}"
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v3
