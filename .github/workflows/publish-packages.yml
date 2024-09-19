@@ -24,7 +24,7 @@ jobs:
         run: |
           $package = ./build.ps1
           Write-Host $package
-          Write-Output "package=$package" >> "$GITHUB_OUTPUT"
+          Write-Output "package=$package" >> $GITHUB_OUTPUT
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v3
