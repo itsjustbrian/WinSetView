@@ -25,7 +25,7 @@ jobs:
           $package = ./build.ps1
           echo "test=test" >> "$GITHUB_OUTPUT"
           Write-Output "test2=test2" >> $env:GITHUB_OUTPUT
-          Write-Ouptut "test3=test3" >> $env:GITHUB_OUTPUT
+          Write-Output "test3=test3" >> $env:GITHUB_OUTPUT
           Write-Output "package=$package" >> $env:GITHUB_OUTPUT
           # echo "test=test" >> $env:GITHUB_OUTPUT
           # echo "test2=test2" >> $env:GITHUB_OUTPUT
