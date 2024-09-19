@@ -20,6 +20,7 @@ jobs:
         shell: pwsh
         run: |
           $package = ./Packages/chocolatey/winsetview/build.ps1
+          Write-Output $package
           Write-Output "package=$package" >> "$GITHUB_OUTPUT"
 
       - name: Upload package artifact
