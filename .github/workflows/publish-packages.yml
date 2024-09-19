@@ -24,10 +24,10 @@ jobs:
         run: |
           $package = ./build.ps1
           Write-Host $package
-          echo "test=test" >> $GITHUB_OUTPUT
-          Write-Output "test2=test2" >> $GITHUB_OUTPUT
-          Write-Host "test3=test3" >> $GITHUB_OUTPUT
-          Write-Output "package=$package" >> $GITHUB_OUTPUT
+          echo "test=test" >> "$GITHUB_OUTPUT"
+          Write-Output "test2=test2" >> "$GITHUB_OUTPUT"
+          Write-Host "test3=test3" >> "$GITHUB_OUTPUT"
+          Write-Output "package=$package" >> "$GITHUB_OUTPUT"
 
       - name: Test
         run: |
