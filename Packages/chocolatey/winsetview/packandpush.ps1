@@ -19,10 +19,8 @@ try {
     return
 } catch { }
 
-New-Item -Type Directory tools -ea 0 | Out-Null
-$toolsPath = Resolve-Path tools
 $zipFileName = "WinSetView-$version.zip"
-$zipFilePath = Join-Path $toolsPath $zipFileName
+$zipFilePath = Join-Path $currentPath "tools" $zipFileName
 
 $assetUrl = "https://github.com/LesFerch/WinSetView/archive/refs/tags/$version.zip"
 Write-Host "Downloading release: $assetUrl"
@@ -34,7 +32,7 @@ $package = Get-ChildItem -Filter *.nupkg | Select-Object -First 1
 if (!$package) {
   throw 'There is no nupkg file in the directory'
 }
-Write-Host "Created nupkg: $package"
+Write-Host $package.Name
 
 $pushUrl = 'https://push.chocolatey.org'
-# choco push $package.Name --api-key $apiKey --source $pushUrl
+# choco push $package --api-key $apiKey --source $pushUrl
