@@ -24,7 +24,17 @@ jobs:
         run: |
           $package = ./build.ps1
           Write-Host $package
+          echo "test=test" >> $GITHUB_OUTPUT
+          Write-Output "test2=test2" >> $GITHUB_OUTPUT
+          Write-Host "test3=test3" >> $GITHUB_OUTPUT
           Write-Output "package=$package" >> $GITHUB_OUTPUT
+
+      - name: Test
+        run: |
+          Write-Host ${{ steps }}
+          Write-Host ${{ steps.build }}
+          Write-Host ${{ steps.build.outputs }}
+          Write-Host ${{ steps.build.outputs.package }}
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v3
