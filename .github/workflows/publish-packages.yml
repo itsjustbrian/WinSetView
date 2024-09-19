@@ -1,11 +1,11 @@
 name: Publish Packages
 
-# on:
-#   release:
-#     types: [published]
+on:
+  release:
+    types: [published]
 
-# for testing
-on: [push]
+  workflow_dispatch:
+
 
 jobs:
   publish:
