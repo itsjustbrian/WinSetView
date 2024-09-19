@@ -7,6 +7,7 @@ $nuspecPath = Join-Path $currentPath "winsetview.nuspec"
 [xml]$nuspecXml = Get-Content $nuspecPath
 
 $version = $nuspecXml.package.metadata.version
+Write-Host "Building verion $version"
 
 $chocoUrl = "https://chocolatey.org/packages/winsetview/$version"
 try {
@@ -31,4 +32,4 @@ if (!$package) {
   throw 'No nupkg file was found after build'
 }
 
-Write-Output $package.FullName
+Write-Output $package
