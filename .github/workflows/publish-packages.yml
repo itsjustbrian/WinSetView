@@ -31,19 +31,16 @@ jobs:
 
       - name: Test
         run: |
-          # Write-Host ${{ steps }}
-          # Write-Host ${{ steps.build }}
-          # Write-Host ${{ steps.build.outputs }}
-          Write-Host ${{ steps.build.outputs.test }}
-          Write-Host ${{ steps.build.outputs.test2 }}
-          Write-Host ${{ steps.build.outputs.test3 }}
-          Write-Host ${{ steps.build.outputs.package }}
+          Write-Host "${{ steps.build.outputs.test }}"
+          Write-Host "${{ steps.build.outputs.test2 }}"
+          Write-Host "${{ steps.build.outputs.test3 }}"
+          Write-Host "${{ steps.build.outputs.package }}"
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v3
         with:
           name: package-artifact 
-          path: ${{ steps.build.outputs.package }}
+          path: "${{ steps.build.outputs.package }}"
 
       # - name: Publish package
       #   run: ./Packages/chocolatey/winsetview/publish.ps1 -package ${{ steps.build.outputs.package }} -apiKey $CHOCO_API_KEY
