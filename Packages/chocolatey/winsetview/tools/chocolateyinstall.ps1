@@ -18,17 +18,16 @@ $ErrorActionPreference = 'Stop' # stop on all errors
 #{{ChecksumType}} - The checksum type for the url | /ct
 #{{ChecksumTypex64}} - The checksum type for the 64-bit url | /ct64
 
-$toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
+$toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
 $zipFile = Get-ChildItem -Path $toolsDir -Filter "WinSetView*.zip" | Select-Object -First 1
 if (-Not $zipFile) {
   Exit 1
 }
-$zipFilePath = $zipFile.Name
 
-Get-ChocolateyUnzip -FileFullPath $zipFilePath -Destination $toolsDir
+Get-ChocolateyUnzip -FileFullPath $zipFile.FullName -Destination $toolsDir
 
-$files = Get-ChildItem $toolsDir -include *.exe -recurse
+$files = Get-ChildItem -Path $toolsDir -include *.exe -recurse
 
 foreach ($file in $files) {
   if ($file.Name -eq "WinSetView.exe") {
@@ -38,8 +37,8 @@ foreach ($file in $files) {
   }
 }
 
-if (Test-Path $zipFilePath) {
-  Remove-Item $zipFilePath -Force
+if (Test-Path $zipFile.FullName) {
+  Remove-Item $zipFile.FullName -Force
 }
 
 # $guiFilePath = Join-Path $toolsDir "WinSetView.exe.gui" 
