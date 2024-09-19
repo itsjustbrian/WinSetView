@@ -17,6 +17,6 @@ jobs:
 
       - name: Create and publish package
         shell: pwsh
-        run: ./Packages/chocolatey/winsetview/packandpush.ps1 -apiKey $CHOCO_API_KEY
+        run: ./Packages/chocolatey/winsetview/packandpush.ps1 -apiKey "test"
         env:
           CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
