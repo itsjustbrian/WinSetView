@@ -24,13 +24,11 @@ Write-Host "Downloading release: $assetUrl"
 Invoke-WebRequest $assetUrl -OutFile $zipFilePath
 Write-Host "Saved release: $zipFilePath"
 
-choco pack $nuspecPath --outputdirectory $currentPath --limit-output
+choco pack $nuspecPath --out $currentPath --limit-output | Out-Host
 $package = Get-ChildItem -Path $currentPath -Filter *.nupkg | Select-Object -First 1
 if (!$package) {
   # TODO maybe more info here?
   throw 'No nupkg file was found after build'
 }
-Write-Host $package
-Write-Host $package.FullName
 
 Write-Output $package.FullName
