@@ -15,5 +15,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Get Chocolatey AU
-        run: Install-Module chocolatey-au
+      - name: Create and publish package
+        shell: pwsh
+        run: ./Packages/chocolatey/winsetview/packandpush.ps1 -apiKey $CHOCO_API_KEY
+        env:
+          CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
