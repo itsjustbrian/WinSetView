@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>winsetview</id>
-    <version>3.99</version>
+    <version>2.99</version>
     <packageSourceUrl>https://github.com/LesFerch/WinSetView/tree/main/Packages/chocolatey/winsetview</packageSourceUrl>
     <owners>Les Ferch</owners>
 

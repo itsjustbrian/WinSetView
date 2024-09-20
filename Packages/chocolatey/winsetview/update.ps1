@@ -39,8 +39,8 @@ Write-Host "Updating nuspec description from $descriptionPath"
 $exeHash = (Get-FileHash -Path $exePath -Algorithm SHA256).Hash
 $verificationPath = Join-Path $currentPath "legal/VERIFICATION.txt"
 $verificationContent = Get-Content $verificationPath -Raw
-$verificationPath = $verificationContent -replace '\b(checksum: ).*\b', "`$1$exeHash"
+$verificationContent = $verificationContent -replace '\b(checksum: ).*\n', "`${1}$exeHash`n"
 Write-Host "Updating verification checksum: $exeHash"
 
-Set-Content -Path $verificationPath -Value $verificationContent -NoNewline
 Set-Content -Path $nuspecPath -Value $newNuspecContent -NoNewline
+Set-Content -Path $verificationPath -Value $verificationContent -NoNewline

@@ -24,7 +24,7 @@ You can either:
 
   Binary: WinSetView.exe
   checksum type: sha256
-  checksum: 94BE6EFF518E324393EDBD8DEA099
+  checksum: 94BE6EFF518E324393EDBD8DEA09970D6C6DB8F918ED868C964332B6F0C8BEE5
 
   To generate the checksum:
     - Using powershell function 'Get-Filehash'
