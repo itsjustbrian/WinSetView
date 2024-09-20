@@ -9,16 +9,15 @@ $nuspecPath = Join-Path $currentPath "winsetview.nuspec"
 $version = $nuspecXml.package.metadata.version
 Write-Host "Building verion $version from nuspec $nuspecPath"
 
+# get current checksum from verification 
+# create checksum from current exe
+# compare and error out if different
+
 $zipFileName = "WinSetView-$version.zip"
 $zipFilePath = Join-Path $currentPath "tools" $zipFileName
 
-$assetUrl = "https://github.com/LesFerch/WinSetView/archive/refs/tags/$version.zip"
-Write-Host "Downloading release: $assetUrl"
-Invoke-WebRequest $assetUrl -OutFile $zipFilePath
-Write-Host "Saved release: $zipFilePath"
-
+git archive -o $zipFilePath HEAD
 choco pack $nuspecPath --out $currentPath --limit-output | Out-Host
-
 if (Test-Path $zipFilePath) {
   Remove-Item $zipFilePath -Force
 }

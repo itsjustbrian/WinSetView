@@ -1,8 +1,6 @@
 ﻿
 From: https://github.com/LesFerch/WinSetView/blob/main/LICENSE
 
-LICENSE
-
 MIT License
 
 Copyright (c) 2021 Les Ferch
