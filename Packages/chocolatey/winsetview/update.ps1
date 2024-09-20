@@ -1,7 +1,6 @@
 
 param (
-  [string]$version,
-  [string]$readMePath
+  [string]$version
 )
 
 $ErrorActionPreference = 'Stop'
@@ -13,7 +12,7 @@ function UpdateRawXMLProperty {
     [Parameter(Mandatory=$true)][string]$value
   )
 
-  $xmlContent = $xmlContent -replace "(\<$property\>).*?(\</$property\>)", "`${1}$($value)`$2"
+  $xmlContent = $xmlContent -replace "(\s*)(\<$property\>)[\S\s]*(\</$property\>)", "`${1}`${2}$($value)`$3"
   Write-Output $xmlContent
 }
 
@@ -27,18 +26,13 @@ if ($version) {
   $currentVersion = $nuspecContentXml.package.metadata.version
   $newNuspecContent = UpdateRawXMLProperty -xmlContent $newNuspecContent -property "version" -value $version
   Write-Host "Updated version: $currentVersion -> $version"
-  $newReleaseNotes = "https://github.com/LesFerch/WinSetView/releases/tag/$version"
-  $newNuspecContent = UpdateRawXMLProperty -xmlContent $newNuspecContent -property "releaseNotes" -value $newReleaseNotes
-  Write-Host "Updated release notes: $newReleaseNotes"
 }
 
-if ($readMePath) {
-  $readmeContent = Get-Content $readMePath -Raw
-  # Remove the first line of the readme
-  $newDescription = ($readmeContent -split "`n" | Select-Object -Skip 1) -join "`n`$1`t"
-  # Replace description while keeping the formatting nice
-  $newNuspecContent = $newNuspecContent -replace '\n(\s*)(\<description\>)[\S\s]*(\</description\>)', "`n`$1`$2`n`$1`t$newDescription`n`$1`$3"
-  Write-Host "Updated description from README $readMePath"
-}
+$descriptionPath = Join-Path $currentPath "Description.md"
+$descriptionContent = Get-Content $descriptionPath -Raw
+$newDescription = ($descriptionContent -split "`n" | Select-Object -Skip 1) -join "`n"
+$newDescription = "<![CDATA[$descriptionContent]]>"
+$newNuspecContent = UpdateRawXMLProperty -xmlContent $newNuspecContent -property "description" -value $newDescription
+Write-Host "Updated description from $descriptionPath"
 
 Set-Content -Path $nuspecPath -Value $newNuspecContent -NoNewline
