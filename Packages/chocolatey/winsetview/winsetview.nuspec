@@ -8,14 +8,14 @@
     <owners>Les Ferch</owners>
 
     <title>WinSetView</title>
-    <authors>Les Ferch, WinSetView contributers</authors>
+    <authors>Les Ferch</authors>
     <projectUrl>https://github.com/LesFerch/WinSetView</projectUrl>
     <!-- There are a number of CDN Services that can be used for hosting the Icon for a package. More information can be found here: https://docs.chocolatey.org/en-us/create/create-packages#package-icon-guidelines -->
     <!-- Here is an example using Githack -->
     <!--<iconUrl>http://rawcdn.githack.com/__REPLACE_YOUR_REPO__/master/icons/winsetview.png</iconUrl>-->
-    <copyright>Copyright (c) 2021-PRESENT Les Ferch</copyright>
+    <copyright>Copyright (c) 2021 Les Ferch</copyright>
     <licenseUrl>https://github.com/LesFerch/WinSetView/blob/main/LICENSE</licenseUrl>
-    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectSourceUrl>https://github.com/LesFerch/WinSetView</projectSourceUrl>
     <docsUrl>https://github.com/LesFerch/WinSetView/blob/main/Manual.md</docsUrl>
     <mailingListUrl>https://github.com/LesFerch/WinSetView/discussions</mailingListUrl>
