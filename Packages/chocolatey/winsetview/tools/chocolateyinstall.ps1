@@ -22,24 +22,36 @@ $toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
 $zipFile = Get-ChildItem -Path $toolsDir -Filter "WinSetView*.zip" | Select-Object -First 1
 if (-Not $zipFile) {
-  Exit 1
+  throw ("No WinSetView zip file found in directory {0}" -f $toolsDir)
 }
 
 Get-ChocolateyUnzip -FileFullPath $zipFile.FullName -Destination $toolsDir
 
-$files = Get-ChildItem -Path $toolsDir -include *.exe -recurse
+$winSetViewExeFile = Get-ChildItem -Path $toolsDir -Filter "WinSetView.exe" -Recurse | Select-Object -First 1
+$allExeFiles = Get-ChildItem -Path $toolsDir -Include *.exe -Recurse
 
-foreach ($file in $files) {
-  if ($file.Name -eq "WinSetView.exe") {
-    New-Item "$file.gui" -type file -force | Out-Null
+foreach ($file in $allExeFiles) {
+  if ($file.Name -eq $winSetViewExeFile.Name) {
+    New-Item "$file.gui" -ItemType file -Force | Out-Null
   } else {
-    New-Item "$file.ignore" -type file -force | Out-Null
+    New-Item "$file.ignore" -ItemType file -Force | Out-Null
   }
 }
 
 if (Test-Path $zipFile.FullName) {
   Remove-Item $zipFile.FullName -Force
 }
+
+# Deny WinSetView.exe write permission within it's folder, forcing it to place settings in AppData/Roaming
+
+# Get the current ACL (Access Control List) for the executable
+$winSetViewExeAcl = Get-Acl $winSetViewExeFile.FullName
+# Create a new rule to deny users permission to create files and directories in the folder
+$winSetViewExeAcl.SetAccessRule(
+  (New-Object System.Security.AccessControl.FileSystemAccessRule("Everyone", "WriteData, CreateDirectories", "Deny")))
+# Apply the updated ACL to the executable
+Set-Acl -Path $winSetViewExeFile.FullName -AclObject $winSetViewExeAcl
+
 
 # $guiFilePath = Join-Path $toolsDir "WinSetView.exe.gui" 
 # New-Item -Path $guiFilePath -ItemType File -Force

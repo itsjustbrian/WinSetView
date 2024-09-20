@@ -7,7 +7,8 @@
 # Provide REG file name to restore Explorer views from backup
 
 Param (
-  $File = ''
+  $File = '',
+  [switch]$useAppData = $false
 )
 
 #Set-PSDebug -Trace 1
@@ -157,12 +158,14 @@ $ViveExe = (New-Object -ComObject Scripting.FileSystemObject).GetFile($ViveExe).
 
 # Use script folder if we have write access. Otherwise use AppData folder.
 
-$TestFile = "$PSScriptRoot\$TimeStr.txt"
-Try {[io.file]::OpenWrite($TestFile).close()}
-Catch {}
-If (Test-Path -Path $TestFile) {
-  Remove-Item $TestFile
-  $AppData = "$PSScriptRoot\AppData"
+If (-Not $useAppData) {
+  $TestFile = "$PSScriptRoot\$TimeStr.txt"
+  Try {[io.file]::OpenWrite($TestFile).close()}
+  Catch {}
+  If (Test-Path -Path $TestFile) {
+    Remove-Item $TestFile
+    $AppData = "$PSScriptRoot\AppData"
+  }
 }
 $BakFile  = "$AppData\Backup\$TimeStr.reg"
 $Custom   = "$AppData\WinSetViewCustom.reg"
