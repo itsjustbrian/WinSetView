@@ -1,7 +1,8 @@
-LICENSE  export-ignore
-*.md     export-ignore
-.git*    export-ignore
-Src      export-ignore
-assets   export-ignore
-Packages export-ignore
-*.scss linguist-vendored
+LICENSE             export-ignore
+*.md                export-ignore
+.git*               export-ignore
+Src                 export-ignore
+assets              export-ignore
+Packages            export-ignore
+updatePackages.ps1  export-ignore
+*.scss              linguist-vendored

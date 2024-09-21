@@ -1,4 +1,5 @@
-- Top level update-packages script with no parameters
 - After first package is deployed, releases must stay available, or
   checksums will be invalid
 - Prefer using semantic versioning
+- Maybe make winsetview.ps1 script available to run through chocolatey
+- Powershell 2.0 should theoretically be able to handle mandatory parameter syntax for file name

@@ -5,6 +5,8 @@ param (
 
 $ErrorActionPreference = 'Stop'
 
+# Sanity check that we aren't trying to publish a version
+# that is already published.
 $chocoPackagesUrl = "https://chocolatey.org/packages/winsetview/$version"
 try {
   Invoke-WebRequest $chocoPackagesUrl | out-null
