@@ -1,5 +1,5 @@
 param (
-  [Parameter(Mandatory=$true)][string]$exePath
+  [Parameter(Mandatory=$true)][string]$rootPath
 )
 
 $ErrorActionPreference = 'Stop'
@@ -17,6 +17,7 @@ $verificationContent = Get-Content $verificationPath -Raw
 $verificationHash = if ($verificationContent -match '\bchecksum: ([a-zA-Z0-9]*)') {
   $matches[1]
 }
+$exePath = Join-Path $rootPath "WinSetView.exe"
 $exeHash = (Get-FileHash -Path $exePath -Algorithm SHA256).Hash
 if ($exeHash -eq $verificationHash) {
   Write-Host "WinSetView.exe checksum matches verification checksum: $verificationHash"
@@ -29,15 +30,14 @@ $zipFilePath = Join-Path $currentPath "tools" $zipFileName
 Write-Host $zipFileName
 Write-Host $zipFilePath
 
-git archive -o $zipFilePath HEAD -v
-$files = Get-ChildItem
-$files2 = Get-ChildItem -Path .\tools
-Write-Host $files
-Write-Host $files2
+Set-Location $rootPath
+git archive -o $zipFilePath HEAD
+Set-Location $currentPath
+
 choco pack $nuspecPath --out $currentPath --limit-output | Out-Host
-# if (Test-Path $zipFilePath) {
-#   Remove-Item $zipFilePath -Force
-# }
+if (Test-Path $zipFilePath) {
+  Remove-Item $zipFilePath -Force
+}
 
 $package = Get-ChildItem -Path $currentPath -Filter *.nupkg | Select-Object -First 1
 if (!$package) {

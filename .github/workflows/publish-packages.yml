@@ -23,7 +23,7 @@ jobs:
       - name: Build package
         id: build
         run: |
-          $package = ./build.ps1 -exePath "${{ github.workspace }}\WinSetView.exe"
+          $package = ./build.ps1 -rootPath ${{ github.workspace }}
           Write-Output "packagePath=$($package.FullName)" >> $env:GITHUB_OUTPUT
           Write-Output "packageName=$($package.Name)" >> $env:GITHUB_OUTPUT
 
