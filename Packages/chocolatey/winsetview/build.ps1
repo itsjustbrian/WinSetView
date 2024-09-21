@@ -26,9 +26,7 @@ if ($exeHash -eq $verificationHash) {
 }
 
 $zipFileName = "WinSetView-$version.zip"
-$zipFilePath = Join-Path $currentPath "tools" $zipFileName
-Write-Host $zipFileName
-Write-Host $zipFilePath
+$zipFilePath = Join-Path $currentPath "tools\$zipFileName"
 
 Set-Location $rootPath
 git archive -o $zipFilePath HEAD

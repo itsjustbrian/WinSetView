@@ -1,5 +1,12 @@
 ﻿$ErrorActionPreference = 'Stop'
 
+# TODO: maybe needed for upgrade
+# $packageDirectory = Join-Path $env:ChocolateyInstall "lib\$env:ChocolateyPackageName"
+
+# if (Test-Path $packageDirectory) {
+#   Remove-Item $packageDirectory -Recurse -Force
+# }
+
 $toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
 $zipFile = Get-ChildItem -Path $toolsDir -Filter "WinSetView*.zip" | Select-Object -First 1

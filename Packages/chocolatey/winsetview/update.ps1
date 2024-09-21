@@ -1,7 +1,7 @@
 
 param (
   [Parameter(Mandatory=$true)][string]$version,
-  [Parameter(Mandatory=$true)][string]$exePath
+  [Parameter(Mandatory=$true)][string]$rootPath
 )
 
 $ErrorActionPreference = 'Stop'
@@ -36,11 +36,12 @@ $newDescription = "<![CDATA[$descriptionContent]]>"
 $newNuspecContent = UpdateRawXMLProperty -xmlContent $newNuspecContent -property "description" -value $newDescription
 Write-Host "Updating nuspec description from $descriptionPath"
 
+$verificationPath = Join-Path $currentPath "legal\VERIFICATION.txt"
+$exePath = Join-Path $rootPath "WinSetView.exe"
 $exeHash = (Get-FileHash -Path $exePath -Algorithm SHA256).Hash
-$verificationPath = Join-Path $currentPath "legal/VERIFICATION.txt"
-$verificationContent = Get-Content $verificationPath -Raw
-$verificationContent = $verificationContent -replace '\b(checksum: )[a-zA-Z0-9]*', "`${1}$exeHash"
-Write-Host "Updating verification checksum: $exeHash"
+$verificationTemplateContent = Get-Content(Join-Path $currentPath "VERIFICATION.template.txt") -Raw
+$verificationTemplateContent = $verificationTemplateContent -replace "{{VERSION}}", $version -replace "{{CHECKSUM}}", $exeHash
+Write-Host "Updating verification file with version $version and checksum $exeHash"
 
 Set-Content -Path $nuspecPath -Value $newNuspecContent -NoNewline
-Set-Content -Path $verificationPath -Value $verificationContent -NoNewline
+Set-Content -Path $verificationPath -Value $verificationTemplateContent -NoNewline

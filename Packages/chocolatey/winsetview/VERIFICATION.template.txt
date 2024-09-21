@@ -4,7 +4,7 @@ in verifying that this package's contents are trustworthy.
 
 I, Les Ferch, am the author of the software bundled in this package.
 The binary included in this package is the same as the one available
-in the source repository for verion 2.99 which is built and
+in the source repository for verion {{VERSION}} which is built and
 distributed by me under the same MIT license as the source
 code <https://github.com/LesFerch/WinSetView/blob/main/LICENSE>
 
@@ -13,24 +13,23 @@ The binary can be verified like this:
 1. Get or build the binary WinSetView.exe file
 
 You can either:
-- Download the pre-built exe for version 2.99 directly from the repository:
-  https://github.com/LesFerch/WinSetView/blob/2.99/WinSetView.exe
+- Download the pre-built exe for version {{VERSION}} directly from the repository:
+  https://github.com/LesFerch/WinSetView/blob/{{VERSION}}/WinSetView.exe
   OR
-- Build the exe for verion 2.99 from the source code available in the repository following these instructions:
-  https://github.com/LesFerch/WinSetView/blob/2.99/Src/Developer.md#exe-creation-steps
-  Source: https://github.com/LesFerch/WinSetView/tree/2.99
+- Build the exe for verion {{VERSION}} from the source code available in the repository following these instructions:
+  https://github.com/LesFerch/WinSetView/blob/{{VERSION}}/Src/Developer.md#exe-creation-steps
+  Source: https://github.com/LesFerch/WinSetView/tree/{{VERSION}}
 
 2. Verify that the SHA256 checksum of binary obtained in step 1 matches the checksum of the
   binary included in this Chocolatey package:
 
   Binary: WinSetView.exe
-  Version: 2.99
+  Version: {{VERSION}}
   checksum type: sha256
-  checksum: 94BE6EFF518E324393EDBD8DEA09970D6C6DB8F918ED868C964332B6F0C8BEE5
+  checksum: {{CHECKSUM}}
 
   To generate the checksum:
     - Using powershell function 'Get-Filehash'
       Example: Get-FileHash .\WinSetView.exe -Algorithm SHA256
     - Using chocolatey utility 'checksum.exe'
       Example: checksum -t sha256 -f .\WinSetView.exe
- 
