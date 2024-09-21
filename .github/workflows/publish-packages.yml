@@ -23,9 +23,9 @@ jobs:
       - name: Build package
         id: build
         run: |
-          # $package = ./build.ps1 -exePath "${{ github.workspace }}\WinSetView.exe"
-          # Write-Output "packagePath=$($package.FullName)" >> $env:GITHUB_OUTPUT
-          # Write-Output "packageName=$($package.Name)" >> $env:GITHUB_OUTPUT
+          $package = ./build.ps1 -exePath "${{ github.workspace }}\WinSetView.exe"
+          Write-Output "packagePath=$($package.FullName)" >> $env:GITHUB_OUTPUT
+          Write-Output "packageName=$($package.Name)" >> $env:GITHUB_OUTPUT
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
