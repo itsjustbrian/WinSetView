@@ -35,7 +35,7 @@ if ($version) {
 $descriptionPath = Join-Path $currentPath "Description.md"
 $descriptionContent = Get-Content $descriptionPath -Raw
 $newDescription = ($descriptionContent -split "`n" | Select-Object -Skip 1) -join "`n"
-$newDescription = "<![CDATA[$descriptionContent]]>"
+$newDescription = "<![CDATA[$newDescription]]>"
 $newNuspecContent = UpdateRawXMLProperty -xmlContent $newNuspecContent -property "description" -value $newDescription
 Write-Host "Updating nuspec description from $descriptionPath"
 

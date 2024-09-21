@@ -26,7 +26,7 @@ Install-ChocolateyPowershellCommand -PackageName "winsetview" -PSFileFullPath $w
 $winSetViewGui = Get-ChildItem -Path "$toolsDir\WinSetView.exe"
 Install-BinFile -Name "winsetview-gui" -Path $winSetViewGui.FullName -UseStart
 
-# Add start menu shortcut
+# Add start menu shortcut for current user
 Install-ChocolateyShortcut `
   -ShortcutFilePath "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\WinSetView.lnk" `
   -TargetPath $winSetViewGui.FullName `

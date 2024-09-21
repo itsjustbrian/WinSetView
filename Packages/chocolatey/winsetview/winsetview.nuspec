@@ -20,10 +20,9 @@
     <docsUrl>https://github.com/LesFerch/WinSetView/blob/main/Manual.md</docsUrl>
     <mailingListUrl>https://github.com/LesFerch/WinSetView/discussions</mailingListUrl>
     <bugTrackerUrl>https://github.com/LesFerch/WinSetView/issues</bugTrackerUrl>
-    <tags>winsetview explorer views folder customization windows settings explorer-views windows-explorer file-explorer admin foss</tags>
+    <tags>winsetview explorer views folder customization windows settings explorer-views windows-explorer file-explorer foss</tags>
     <summary>Globally set explorer folder views</summary>
-    <description><![CDATA[<!-- The below content is injected into the nuspec <description> field on build -->
-WinSetView provides an easy way to set Windows File Explorer default folder views. For example, if you want Details view, with a particular selection of column headings enabled across all folders, then WinSetView will do that for you.
+    <description><![CDATA[WinSetView provides an easy way to set Windows File Explorer default folder views. For example, if you want Details view, with a particular selection of column headings enabled across all folders, then WinSetView will do that for you.
 
 Compatible with Windows 7, 8, 10, and 11.
 ]]></description>
