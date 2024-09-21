@@ -31,9 +31,9 @@ git archive -o $zipFilePath HEAD
 Write-Host Get-ChildItem
 Write-Host Get-ChildItem -Path .\tools
 choco pack $nuspecPath --out $currentPath --limit-output | Out-Host
-if (Test-Path $zipFilePath) {
-  Remove-Item $zipFilePath -Force
-}
+# if (Test-Path $zipFilePath) {
+#   Remove-Item $zipFilePath -Force
+# }
 
 $package = Get-ChildItem -Path $currentPath -Filter *.nupkg | Select-Object -First 1
 if (!$package) {
