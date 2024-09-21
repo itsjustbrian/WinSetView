@@ -44,4 +44,4 @@ $verificationTemplateContent = $verificationTemplateContent -replace "{{VERSION}
 Write-Host "Updating verification file with version $version and checksum $exeHash"
 
 Set-Content -Path $nuspecPath -Value $newNuspecContent -NoNewline
-Set-Content -Path $verificationPath -Value $verificationTemplateContent -NoNewline
+Set-Content -Path $verificationPath -Value $verificationTemplateContent

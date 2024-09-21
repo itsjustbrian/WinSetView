@@ -33,4 +33,4 @@ You can either:
       Example: Get-FileHash .\WinSetView.exe -Algorithm SHA256
     - Using chocolatey utility 'checksum.exe'
       Example: checksum -t sha256 -f .\WinSetView.exe
- 
+

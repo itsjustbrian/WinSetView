@@ -2,11 +2,6 @@
 
 $toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
-$appRunning = Get-Process -Name "WinSetView" -ErrorAction SilentlyContinue
-if ($appRunning) {
-  throw "WinSetView is currently running. Please close the application before continuing."
-}
-
 $zipFile = Get-ChildItem -Path $toolsDir -Filter "WinSetView*.zip" | Select-Object -First 1
 if (-Not $zipFile) {
   throw ("No WinSetView zip file found in directory {0}" -f $toolsDir)
