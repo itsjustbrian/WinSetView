@@ -17,8 +17,8 @@ jobs:
         working-directory: ./Packages/chocolatey/winsetview
     
     steps:
-      # - name: Checkout repository
-      #   uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Build package
         id: build
