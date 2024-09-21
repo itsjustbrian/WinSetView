@@ -1,3 +1,6 @@
+param (
+  [Parameter(Mandatory=$true)][string]$exePath
+)
 
 $ErrorActionPreference = 'Stop'
 
@@ -9,9 +12,17 @@ $nuspecPath = Join-Path $currentPath "winsetview.nuspec"
 $version = $nuspecXml.package.metadata.version
 Write-Host "Building verion $version from nuspec $nuspecPath"
 
-# get current checksum from verification 
-# create checksum from current exe
-# compare and error out if different
+$verificationPath = Join-Path $currentPath "legal/VERIFICATION.txt"
+$verificationContent = Get-Content $verificationPath -Raw
+$verificationHash = if ($verificationContent -match '\bchecksum: ([a-zA-Z0-9]*)') {
+  $matches[1]
+}
+$exeHash = (Get-FileHash -Path $exePath -Algorithm SHA256).Hash
+if ($exeHash -eq $verificationHash) {
+  Write-Host "WinSetView.exe checksum matches verification checksum: $verificationHash"
+} else {
+  throw "Verification checksum did not match current exe checksum`nverification checksum: {0}`nexe checksum: {1}" -f $verificationHash, $exeHash
+}
 
 $zipFileName = "WinSetView-$version.zip"
 $zipFilePath = Join-Path $currentPath "tools" $zipFileName
