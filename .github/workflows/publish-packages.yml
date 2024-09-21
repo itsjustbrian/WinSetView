@@ -23,10 +23,12 @@ jobs:
       - name: Build package
         id: build
         run: |
-          Write-Host "${{ secrets.production.CHOCO_API_KEY }}"
+          Write-Host "$SUPER_SECRET"
           $package = ./build.ps1 -exePath "${{ github.workspace }}\WinSetView.exe"
           Write-Output "packagePath=$($package.FullName)" >> $env:GITHUB_OUTPUT
           Write-Output "packageName=$($package.Name)" >> $env:GITHUB_OUTPUT
+        env:
+          SUPER_SECRET: ${{ secrets.CHOCO_API_KEY }}
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
