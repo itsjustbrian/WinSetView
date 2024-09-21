@@ -26,10 +26,14 @@ if ($exeHash -eq $verificationHash) {
 
 $zipFileName = "WinSetView-$version.zip"
 $zipFilePath = Join-Path $currentPath "tools" $zipFileName
+Write-Host $zipFileName
+Write-Host $zipFilePath
 
-git archive -o $zipFilePath HEAD
-Write-Host Get-ChildItem
-Write-Host Get-ChildItem -Path .\tools
+git archive -o $zipFilePath HEAD -v
+$files = Get-ChildItem
+$files2 = Get-ChildItem -Path .\tools
+Write-Host $files
+Write-Host $files2
 choco pack $nuspecPath --out $currentPath --limit-output | Out-Host
 # if (Test-Path $zipFilePath) {
 #   Remove-Item $zipFilePath -Force
