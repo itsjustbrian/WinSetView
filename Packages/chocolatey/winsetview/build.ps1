@@ -28,6 +28,8 @@ $zipFileName = "WinSetView-$version.zip"
 $zipFilePath = Join-Path $currentPath "tools" $zipFileName
 
 git archive -o $zipFilePath HEAD
+Get-ChildItem
+Get-ChildItem -Path .\tools
 choco pack $nuspecPath --out $currentPath --limit-output | Out-Host
 if (Test-Path $zipFilePath) {
   Remove-Item $zipFilePath -Force
