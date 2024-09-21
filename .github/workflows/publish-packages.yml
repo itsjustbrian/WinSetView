@@ -32,6 +32,7 @@ jobs:
         with:
           name: ${{ steps.build.outputs.packageName }} 
           path: ${{ steps.build.outputs.packagePath }}
+          if-no-files-found: error
 
       # - name: Publish package
       #   run: ./publish.ps1 -package ${{ steps.build.outputs.package }} -apiKey $CHOCO_API_KEY
