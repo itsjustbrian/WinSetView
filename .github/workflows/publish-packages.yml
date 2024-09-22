@@ -1,10 +1,11 @@
 name: Publish Packages
 
-on:
-  release:
-    types: [published]
+on: [push]
+# on:
+#   release:
+#     types: [published]
 
-  workflow_dispatch:
+#   workflow_dispatch:
 
 jobs:
   publish:
@@ -31,6 +32,9 @@ jobs:
           name: ${{ steps.build.outputs.packageName }} 
           path: ${{ steps.build.outputs.packagePath }}
           if-no-files-found: error
+
+      - name: Test package
+        run: ./test.ps1 -packagePath ${{ steps.build.outputs.packagePath }}
 
       - name: Publish package
         run: ./publish.ps1 -package ${{ steps.build.outputs.package }} -apiKey $CHOCO_API_KEY

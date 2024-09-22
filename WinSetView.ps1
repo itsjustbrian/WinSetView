@@ -8,7 +8,7 @@
 
 Param (
   $File = '',
-  [switch]$useAppData = $false
+  [switch]$userFolderSettings = $false
 )
 
 #Set-PSDebug -Trace 1
@@ -156,9 +156,9 @@ $UAppData  = "$env:UserProfile\AppData"
 $ViveExe  = "$PSScriptRoot\AppParts\ViVeTool.exe"
 $ViveExe = (New-Object -ComObject Scripting.FileSystemObject).GetFile($ViveExe).ShortPath
 
-# Use script folder if we have write access. Otherwise use AppData folder.
+# Use script folder if param flag is not enabled and we have write access. Otherwise use AppData folder.
 
-If (-Not $useAppData) {
+If (-Not $userFolderSettings) {
   $TestFile = "$PSScriptRoot\$TimeStr.txt"
   Try {[io.file]::OpenWrite($TestFile).close()}
   Catch {}

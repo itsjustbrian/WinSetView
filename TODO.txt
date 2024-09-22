@@ -3,3 +3,4 @@
 - Prefer using semantic versioning
 - Powershell 2.0 should theoretically be able to handle mandatory parameter syntax for file name
 - Change icon cdn url https://raw.githack.com/
+- Add testing script step
