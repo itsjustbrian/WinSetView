@@ -19,6 +19,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: choco install chocolatey-au
+
       - name: Build package
         id: build
         run: |
@@ -36,7 +39,7 @@ jobs:
       - name: Test package
         run: ./test.ps1 -packagePath ${{ steps.build.outputs.packagePath }}
 
-      - name: Publish package
-        run: ./publish.ps1 -package ${{ steps.build.outputs.package }} -apiKey $CHOCO_API_KEY
-        env:
-          CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
+      # - name: Publish package
+      #   run: ./publish.ps1 -package ${{ steps.build.outputs.package }} -apiKey $CHOCO_API_KEY
+      #   env:
+      #     CHOCO_API_KEY: ${{ secrets.CHOCO_API_KEY }}
