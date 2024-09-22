@@ -10,7 +10,7 @@
     <title>WinSetView</title>
     <authors>Les Ferch</authors>
     <projectUrl>https://github.com/LesFerch/WinSetView</projectUrl>
-    <iconUrl>https://rawcdn.githack.com/LesFerch/WinSetView/f6b2e5c66eb4fa481e556b6ac1ed9643d6c85cc4/Src/WinSetView.ico</iconUrl>
+    <iconUrl>https://rawcdn.githack.com/itsjustbrian/WinSetView/82c9bf7daca33b14eb866f9d514ee6a6f5f94824/Packages/chocolatey/winsetview/icon.png</iconUrl>
     <copyright>Copyright (c) 2021 Les Ferch</copyright>
     <licenseUrl>https://github.com/LesFerch/WinSetView/blob/main/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
