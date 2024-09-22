@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: choco install chocolatey-au
+        run: choco install chocolatey-au -y
 
       - name: Build package
         id: build
