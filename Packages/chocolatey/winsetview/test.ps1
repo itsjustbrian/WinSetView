@@ -19,19 +19,24 @@ function Stop-Process-Tree {
 }
 
 $currentPath = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$testPath = Join-Path $currentPath "test"
 
+# Create testing folder
+$testPath = Join-Path $currentPath "test"
 New-Item $testPath -ItemType "directory" | Out-Null
 try {
   Copy-Item -Path $packagePath -Destination $testPath
   Set-Location $testPath
+
+  # Install package
   Test-Package -Install
 
   Write-Host "Testing winsetview-gui command..."
   try {
     $process = Start-Process -FilePath "winsetview-gui" -PassThru
     Start-Sleep -Seconds 2
+    # WinSetView process is a child of the shim
     $winSetViewProcess = Get-Child-Process $process.Id | Select-Object -First 1
+    # Ensure process exists and is still running
     if ($winSetViewProcess -and -not $winSetViewProcess.HasExited -and $winSetViewProcess.Name -eq "WinSetView") {
       Write-Host "WinSetView GUI started successfully"
     } else {
@@ -45,7 +50,10 @@ try {
   try {
     $process = Start-Process -FilePath "winsetview" -PassThru
     Start-Sleep -Seconds 2
+    # Chocolatey batch shim starts a couple children.
+    # The one with 'powershell' in the name is the script itself.
     $winSetViewScriptProcess = Get-Child-Process $process.Id | Where-Object { $_.Name.Contains("powershell") } | Select-Object -First 1
+    # Existence is all we test for
     if ($winSetViewScriptProcess) {
       Write-Host "WinSetView powershell script ran successfully"
     } else {
@@ -60,8 +68,10 @@ try {
   throw
 } finally {
   try {
+    # Uninstall package even if an error occured
     Test-Package -Uninstall
   } catch {
+    # If running locally, you may need to manually remove/uninstall
     Write-Error "WinSetView could not be uninstalled during test."
     throw
   } finally {
