@@ -30,25 +30,25 @@ try {
   # Install package
   Test-Package -Install
 
-  Write-Host "Testing winsetview-gui command..."
+  Write-Host "Testing winsetview command..."
   try {
-    $process = Start-Process -FilePath "winsetview-gui" -PassThru
+    $process = Start-Process -FilePath "winsetview" -PassThru
     Start-Sleep -Seconds 2
     # WinSetView process is a child of the shim
     $winSetViewProcess = Get-Child-Process $process.Id | Select-Object -First 1
     # Ensure process exists and is still running
     if ($winSetViewProcess -and -not $winSetViewProcess.HasExited -and $winSetViewProcess.Name -eq "WinSetView") {
-      Write-Host "WinSetView GUI started successfully"
+      Write-Host "WinSetView started successfully"
     } else {
-      throw "WinSetView GUI failed to start"
+      throw "WinSetView failed to start"
     }
   } finally {
     Stop-Process-Tree $process.Id
   }
 
-  Write-Host "Testing winsetview command..."
+  Write-Host "Testing winsetview-cli command..."
   try {
-    $process = Start-Process -FilePath "winsetview" -PassThru
+    $process = Start-Process -FilePath "winsetview-cli" -PassThru
     Start-Sleep -Seconds 2
     # Chocolatey batch shim starts a couple children.
     # The one with 'powershell' in the name is the script itself.

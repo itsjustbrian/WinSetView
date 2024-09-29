@@ -18,19 +18,19 @@ foreach ($file in $allExeFiles) {
   New-Item "$file.ignore" -ItemType file -Force | Out-Null
 }
 
-# Make WinSetView.ps1 available on PATH as winsetview
+# Make WinSetView.ps1 available on PATH as winsetview-cli
 $winSetViewScript = Get-ChildItem -Path "$toolsDir\WinSetView.ps1"
-Install-ChocolateyPowershellCommand -PackageName "winsetview" -PSFileFullPath $winSetViewScript
+Install-ChocolateyPowershellCommand -PackageName "winsetview-cli" -PSFileFullPath $winSetViewScript
 
-# Make WinSetView.exe available on PATH as winsetview-gui
-$winSetViewGui = Get-ChildItem -Path "$toolsDir\WinSetView.exe"
-Install-BinFile -Name "winsetview-gui" -Path $winSetViewGui.FullName -UseStart
+# Make WinSetView.exe available on PATH as winsetview
+$winSetViewExe = Get-ChildItem -Path "$toolsDir\WinSetView.exe"
+Install-BinFile -Name "winsetview" -Path $winSetViewExe.FullName -UseStart
 
 # Add start menu shortcut for current user
 Install-ChocolateyShortcut `
   -ShortcutFilePath "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\WinSetView.lnk" `
-  -TargetPath $winSetViewGui.FullName `
-  -WorkingDirectory $winSetViewGui.FullName
+  -TargetPath $winSetViewExe.FullName `
+  -WorkingDirectory $winSetViewExe.FullName
 
 # Cleanup archive
 if (Test-Path $zipFile.FullName) {
