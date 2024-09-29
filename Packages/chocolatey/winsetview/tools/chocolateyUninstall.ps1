@@ -1,8 +1,8 @@
 $ErrorActionPreference = 'Stop';
 
-# Remove batch file and shim
+# Remove shim and batch file
 Uninstall-BinFile -Name "winsetview"
-Uninstall-BinFile -Name "winsetview-gui"
+Uninstall-BinFile -Name "winsetview-cli"
 
 # Remove shortcut
 $shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\WinSetView.lnk"
