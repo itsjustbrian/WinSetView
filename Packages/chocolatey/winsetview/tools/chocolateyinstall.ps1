@@ -19,8 +19,17 @@ foreach ($file in $allExeFiles) {
 }
 
 # Make WinSetView.ps1 available on PATH as winsetview-cli
+# Copied from https://github.com/chocolatey/choco/blob/master/src/chocolatey.resources/helpers/functions/Install-ChocolateyPowershellCommand.ps1
+# but modified to allow a custom name for the command.
 $winSetViewScript = Get-ChildItem -Path "$toolsDir\WinSetView.ps1"
-Install-ChocolateyPowershellCommand -PackageName "winsetview-cli" -PSFileFullPath $winSetViewScript
+$nugetPath = $(Split-Path -Parent $helpersPath)
+$nugetExePath = Join-Path $nuGetPath 'bin'
+$packageBatchFileName = Join-Path $nugetExePath "winsetview-cli.bat"
+
+Write-Host "Adding $packageBatchFileName and pointing it to powershell command $winSetViewScript"
+
+"@echo off
+powershell -NoProfile -ExecutionPolicy unrestricted -Command ""& `'$winSetViewScript`'  %*"""| Out-File $packageBatchFileName -Encoding ASCII
 
 # Make WinSetView.exe available on PATH as winsetview
 $winSetViewExe = Get-ChildItem -Path "$toolsDir\WinSetView.exe"
